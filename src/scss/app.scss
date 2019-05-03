@@ -75,7 +75,7 @@ header {
 //     .panel-collapse {
 //         max-height: 0;
 //         overflow: hidden;
-//         transition: max-height 0.5s cubic-bezier(.525,.66,.495,1.4);  
+//         transition: max-height 0.5s cubic-bezier(.525,.66,.495,1.4);
 //     }
 //     &.is-expanded {
 //         .panel-collapse {
@@ -91,7 +91,7 @@ header {
     }
     .panel-collapse {
         overflow: hidden;
-        transition: height 0.3s ease-out;  
+        transition: height 0.3s ease-out;
     }
     .panel-body {
         border: none !important;
@@ -115,7 +115,7 @@ header {
         position: absolute;
         left: 0;
         top: 0;
-        background: url('../images/ico_loader.svg') no-repeat 0 0;
+         background: url('../images/ico_loader.svg') no-repeat 0 0;
         background-size: 248px 248px;
     }
 }

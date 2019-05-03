@@ -38,7 +38,15 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        use: 'file-loader?name=fonts/[name].[ext]',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '/fonts/[name].[ext]',
+              // publicPath: '/dist',
+            },
+          },
+        ],
       },
 
       // Use one of these to serve jQuery for Bootstrap scripts:
@@ -51,7 +59,7 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, '/dist'),
     stats: 'errors-only',
   },
   plugins: [
