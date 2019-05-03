@@ -13,11 +13,12 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    localStorage.getItem('contacts') &&
+    if (localStorage.getItem('contacts')) {
       this.setState({
         contacts: JSON.parse(localStorage.getItem('contacts')),
         isLoading: false,
       });
+    }
   }
 
   componentDidMount() {
@@ -37,6 +38,11 @@ class App extends React.Component {
         `Using Data From Local Storage - Which is ${dataAge} mins old`
       );
     }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('contacts', JSON.stringify(nextState.contacts));
+    localStorage.setItem('contactsDate', Date.now());
   }
 
   fetchData() {
@@ -64,21 +70,18 @@ class App extends React.Component {
       .catch(error => console.log('parsing failed', error));
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem('contacts', JSON.stringify(nextState.contacts));
-    localStorage.setItem('contactsDate', Date.now());
-  }
-
   render() {
+    const { isLoading, contacts } = this.state;
     return (
       <div>
         <header>
-          <img src={image} />
+          <img src={image} alt="" />
           <h1>
             Fetching Data{' '}
             <button
+              type="button"
               className="btn btn-sm btn-danger"
-              onClick={e => {
+              onClick={() => {
                 this.fetchData();
               }}
             >
@@ -86,15 +89,18 @@ class App extends React.Component {
             </button>
           </h1>
         </header>
-        <div className={`content ${this.state.isLoading ? 'is-loading' : ''}`}>
+        <div className={`content ${isLoading ? 'is-loading' : ''}`}>
           <div className="panel-group">
-            {!this.state.isLoading && this.state.contacts.length > 0
-              ? this.state.contacts.map(contact => (
-                                    <Collapsible key={contact.username} title={contact.name}>
-                                        <p>{contact.email}<br />{contact.location}</p>
-                                    </Collapsible>
-                                )) : null
-                })
+            {!isLoading && contacts.length > 0
+              ? contacts.map(contact => (
+                  <Collapsible key={contact.username} title={contact.name}>
+                    <p>
+                      {contact.email}
+                      <br />
+                      {contact.location}
+                    </p>
+                  </Collapsible>
+                ))
               : null}
           </div>
 

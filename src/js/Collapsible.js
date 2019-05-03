@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class Collapsible extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    children: PropTypes.string.isRequired,
+    children: PropTypes.object.isRequired,
   };
 
   constructor(props) {
